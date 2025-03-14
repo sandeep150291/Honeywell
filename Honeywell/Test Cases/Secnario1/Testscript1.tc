@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description>check “Contact Us” link is functioning under “ABOUT” menu</description>
+   <name>Testscript1</name>
+   <tag></tag>
+   <comment></comment>
+   <recordOption>OTHER</recordOption>
+   <testCaseGuid>2224b85f-66e0-47bd-b55b-e7f59c966646</testCaseGuid>
+</TestCaseEntity>
