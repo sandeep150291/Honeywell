@@ -41,6 +41,7 @@ public class Submenu {
 		}
 		System.out.println(count + "  actual link count");
 		Assert.assertEquals(count, links.size() - 1);
+		driver.quit();
 	}
 
 	private static void validlink(String data) {
