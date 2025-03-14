@@ -1,0 +1,63 @@
+package test_script;
+
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
+
+public class Submenu {
+
+	public static void main(String[] args) {
+
+		String Chromepath = System.getProperty("user.dir");
+		System.out.println(Chromepath);
+		System.setProperty("webdriver.chrome.driver",
+				"C:\\Users\\sande\\Downloads\\chromedriver-win64\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		Actions action = new Actions(driver);
+		driver.get("https://www.airnavradar.com/");
+		driver.manage().window().maximize();
+		int count = 0;
+		driver.findElement(By.xpath("//p[text()='Manage options']")).click();
+
+		driver.findElement(By.xpath("//p[text()='Accept all']")).click();
+		List<WebElement> links = driver.findElements(By.xpath("//a[@class='ListItemLabel']"));
+		System.out.println(links.size());
+		for (int i = 1; i <= links.size() - 1; i++) {
+
+			String data = links.get(i).getAttribute("href");
+			System.out.println(data);
+			if (data != null && !data.isEmpty()) {
+				validlink(data);
+				count++;
+			}
+
+		}
+		System.out.println(count + "  actual link count");
+		Assert.assertEquals(count, links.size() - 1);
+	}
+
+	private static void validlink(String data) {
+		// TODO Auto-generated method stub
+		try {
+			URL url = new URL(data);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			int responseCode = connection.getResponseCode();
+			if (responseCode == HttpURLConnection.HTTP_OK) {
+				System.out.println("Valid link: " + data);
+			} else {
+				System.out.println("Invalid link: " + data + " - Response code: " + responseCode);
+
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+}
